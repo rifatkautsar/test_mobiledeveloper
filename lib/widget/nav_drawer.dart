@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
-import 'package:test_mobiledeveloper/screens/Home/home_page.dart';
-import 'package:test_mobiledeveloper/screens/Barang/input_barang_page.dart';
+import 'package:test_mobiledeveloper/screens/Transaksi/list_transaksi.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
+import 'package:test_mobiledeveloper/widget/success_alert.dart';
 
-import 'Barang/list_barang_page.dart';
+import '../screens/Barang/list_barang_page.dart';
 
 class NavDrawer extends StatefulWidget {
   const NavDrawer({super.key});
@@ -15,8 +17,7 @@ class NavDrawer extends StatefulWidget {
 
 class _NavDrawerState extends State<NavDrawer> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  String? _title;
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     ListBarangPage(),
@@ -30,6 +31,7 @@ class _NavDrawerState extends State<NavDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    _title = _selectedIndex == 0 ? 'Transaksi' : 'Barang';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstant.blueColor,
@@ -39,6 +41,8 @@ class _NavDrawerState extends State<NavDrawer> {
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
+        title: CustomTextColor(
+            color: Colors.white, text: _title.toString(), size: 20),
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Colors.white),
@@ -50,27 +54,23 @@ class _NavDrawerState extends State<NavDrawer> {
         child: _widgetOptions[_selectedIndex],
       ),
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-             DrawerHeader(
+            DrawerHeader(
               decoration: const BoxDecoration(
                 color: ColorConstant.blueColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   CircleAvatar(
+                  CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.white,
                     child: Icon(
                       Icons.person,
                       color: ColorConstant.blueColor,
-                      size: MediaQuery.of(context).size.width * 0.1,
+                      size: MediaQuery.of(context).size.height * 0.05,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -86,9 +86,7 @@ class _NavDrawerState extends State<NavDrawer> {
               title: const Text('Transaksi'),
               selected: _selectedIndex == 0,
               onTap: () {
-                // Update the state of the app
                 _onItemTapped(0);
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
@@ -96,9 +94,7 @@ class _NavDrawerState extends State<NavDrawer> {
               title: const Text('Barang'),
               selected: _selectedIndex == 1,
               onTap: () {
-                // Update the state of the app
                 _onItemTapped(1);
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),

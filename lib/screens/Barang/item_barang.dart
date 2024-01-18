@@ -6,7 +6,25 @@ import 'package:test_mobiledeveloper/widget/custom_button.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 
 class ItemBarang extends StatelessWidget {
-  const ItemBarang({super.key});
+  final int id;
+  final String namaBarang;
+  final String kodeBarang;
+  final String nomorBarang;
+  final String hargaBarang;
+  final String jumlahBarang;
+  final String totalHargaBarang;
+  final Function btnOnPress;
+
+  const ItemBarang(
+      {super.key,
+      required this.id,
+      required this.namaBarang,
+      required this.kodeBarang,
+      required this.nomorBarang,
+      required this.hargaBarang,
+      required this.jumlahBarang,
+      required this.totalHargaBarang,
+      required this.btnOnPress});
 
   @override
   Widget build(BuildContext context) {
@@ -20,45 +38,45 @@ class ItemBarang extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomTextColor(
+          CustomTextColor(
               color: ColorConstant.blueColor,
-              text: '01',
+              text: id.toString(),
               size: 24,
               fontWeight: FontWeight.bold),
           const SizedBox(height: 10),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomTextColor(
+                  const CustomTextColor(
                       color: Colors.grey, text: 'Nama barang', size: 16),
-                  SizedBox(height: 5),
-                  CustomTextBlack(text: 'Barang A', size: 15),
-                  SizedBox(
+                  const SizedBox(height: 5),
+                  CustomTextBlack(text: namaBarang, size: 15),
+                  const SizedBox(
                     height: 15,
                   ),
-                  CustomTextColor(
+                  const CustomTextColor(
                       color: Colors.grey, text: 'Jumlah Barang', size: 16),
-                  SizedBox(height: 5),
-                  CustomTextBlack(text: '1', size: 15)
+                  const SizedBox(height: 5),
+                  CustomTextBlack(text: jumlahBarang, size: 15)
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomTextColor(
+                  const CustomTextColor(
                       color: Colors.grey, text: 'Kode Barang', size: 16),
-                  SizedBox(height: 5),
-                  CustomTextBlack(text: 'A001', size: 15),
-                  SizedBox(
+                  const SizedBox(height: 5),
+                  CustomTextBlack(text: kodeBarang, size: 15),
+                  const SizedBox(
                     height: 15,
                   ),
-                  CustomTextColor(
+                  const CustomTextColor(
                       color: Colors.grey, text: 'Total', size: 16),
-                  SizedBox(height: 5),
-                  CustomTextBlack(text: '595.000.000', size: 15)
+                  const SizedBox(height: 5),
+                  CustomTextBlack(text: hargaBarang, size: 15)
                 ],
               ),
             ],
@@ -82,7 +100,14 @@ class ItemBarang extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const EditBarang(),
+                        builder: (context) => EditBarang(
+                            id: id,
+                            kodeBarang: kodeBarang,
+                            namaBarang: namaBarang,
+                            nomorBarang: int.parse(nomorBarang),
+                            hargaBarang: int.parse(hargaBarang),
+                            jumlahBarang: int.parse(jumlahBarang),
+                            totalBarang: int.parse(totalHargaBarang)),
                       ),
                     );
                   },
@@ -96,7 +121,7 @@ class ItemBarang extends StatelessWidget {
                   btnText: 'Hapus',
                   btnRadius: 10.0,
                   btnOnPress: () {
-                    CustomAlertDialog.showConfirmationDialog(context);
+                    btnOnPress();
                   },
                 ),
               ),

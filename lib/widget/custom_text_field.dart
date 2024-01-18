@@ -16,7 +16,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.06,
+      height: MediaQuery.of(context).size.height * 0.07,
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
@@ -40,8 +40,7 @@ class CustomTextFieldBorder extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
-  const CustomTextFieldBorder(
-      {super.key, this.hintText, this.controller, this.validator});
+  const CustomTextFieldBorder({super.key, this.hintText, this.controller, this.validator});
 
   @override
   Widget build(BuildContext context) {

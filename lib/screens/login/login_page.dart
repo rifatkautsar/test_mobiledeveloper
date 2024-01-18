@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
-import 'package:test_mobiledeveloper/screens/forgot_password_page.dart';
-import 'package:test_mobiledeveloper/screens/nav_drawer.dart';
+import 'package:test_mobiledeveloper/screens/login/forgot_password_page.dart';
+import 'package:test_mobiledeveloper/widget/nav_drawer.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 import 'package:test_mobiledeveloper/widget/custom_text_field.dart';
@@ -57,7 +58,7 @@ class LoginPage extends StatelessWidget {
                               builder: (context) =>
                                   const ForgotPasswordPage()));
                     },
-                    child: CustomTextColor(
+                    child: const CustomTextColor(
                         color: ColorConstant.blueColor,
                         text: 'Forgot Password?',
                         size: 15,
@@ -68,15 +69,12 @@ class LoginPage extends StatelessWidget {
                 Center(
                   child: SizedBox(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.06,
+                    height: MediaQuery.of(context).size.height * 0.07,
                     child: CustomButtonRectangleBorder(
                         btnColor: ColorConstant.blueColor,
                         btnText: 'Login',
                         btnOnPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const NavDrawer()),
+                          Get.offAll(() => const NavDrawer()
                           );
                         }, btnRadius: 25,),
                   ),
