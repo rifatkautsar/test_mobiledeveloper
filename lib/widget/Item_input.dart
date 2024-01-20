@@ -14,6 +14,7 @@ class ItemInput extends StatelessWidget {
   final TextInputType? textInputType;
   final IconData? icon;
   final VoidCallback? onTap;
+  final void Function(String?)? onChanged;
 
   const ItemInput(
       {super.key,
@@ -25,6 +26,7 @@ class ItemInput extends StatelessWidget {
       this.readOnly = false,
       this.icon,
       this.onTap,
+      this.onChanged,
       this.validator});
 
   @override
@@ -34,25 +36,14 @@ class ItemInput extends StatelessWidget {
       children: [
         CustomTextBlack(text: text, size: textSize),
         const SizedBox(height: 5),
-        TextFormField(
-          readOnly: readOnly!,
+        CustomTextField(
+          hintText: hintText,
           controller: controller,
-          keyboardType: textInputType,
-          decoration: InputDecoration(
-            contentPadding: MediaQuery.of(context).size.height < 600
-                ? const EdgeInsets.symmetric(vertical: 5, horizontal: 5)
-                : const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-            hintText: hintText,
-            suffixIcon: icon != null
-                ? IconButton(
-                    onPressed: onTap,
-                    icon: Icon(icon),
-                  )
-                : null,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
+          textInputType: textInputType,
+          readOnly: readOnly,
+          icon: icon,
+          onTap: onTap,
+          onChanged: onChanged,
           validator: validator,
         )
       ],

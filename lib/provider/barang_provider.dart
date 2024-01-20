@@ -7,12 +7,21 @@ import 'package:test_mobiledeveloper/screens/Barang/input_barang_page.dart';
 import 'package:test_mobiledeveloper/widget/nav_drawer.dart';
 import 'package:test_mobiledeveloper/widget/success_alert.dart';
 
-import '../data/sql_helper.dart';
+import '../data/repository/sql_helper.dart';
 
 class BarangProvider extends ChangeNotifier {
   List<BarangModel> listBarang = [];
 
   List<BarangModel> get getListBarang => listBarang;
+
+  bool isLoading = false;
+
+  bool get getIsLoading => isLoading;
+
+  set setIsLoading(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
 
   void addBarang(BarangModel barangModel) {
     listBarang.add(barangModel);
@@ -30,9 +39,11 @@ class BarangProvider extends ChangeNotifier {
     await loadBarang();
   }
 
-  Future<void> loadBarang() async {
-    List<BarangModel> list = await SQLHelper.getBarangData();
+  Future<void> loadBarang({String? searchQuery}) async {
+    isLoading = true;
+    List<BarangModel> list = await SQLHelper.getBarangData(searchQuery: searchQuery);
     listBarang = list;
+    isLoading = false;
     notifyListeners();
   }
 

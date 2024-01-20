@@ -6,7 +6,7 @@ import 'package:test_mobiledeveloper/widget/constant_text.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 
-class ItemHome extends StatelessWidget {
+class ItemTransaksi extends StatelessWidget {
   final int id;
   final String timeCreated;
   final String customerName;
@@ -15,7 +15,7 @@ class ItemHome extends StatelessWidget {
   final String noTelp;
   final Function btnOnPress;
 
-  const ItemHome(
+  const ItemTransaksi(
       {super.key,
       required this.id,
       required this.timeCreated,

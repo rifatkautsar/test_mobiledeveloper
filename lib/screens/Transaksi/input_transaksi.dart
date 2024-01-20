@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
-import 'package:test_mobiledeveloper/data/date_utils.dart';
+import 'package:test_mobiledeveloper/data/utilities/date_utils.dart';
 import 'package:test_mobiledeveloper/provider/transaksi_provider.dart';
+import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
 import 'package:test_mobiledeveloper/widget/Item_input.dart';
 import 'package:test_mobiledeveloper/widget/app_bar_custom.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
@@ -21,28 +22,7 @@ class _InputTransaksiState extends State<InputTransaksi> {
   DateTime selectedDate = DateTime.now();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? date;
-
-  void _showDatePicker() {
-    showDatePicker(
-            context: context,
-            initialDate: selectedDate,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2025))
-        .then((pickedDate) {
-      if (pickedDate == null) {
-        return;
-      }
-      setState(() {
-        selectedDate = pickedDate;
-        date = selectedDate.toString();
-        tanggalController.text = selectedDate.toString();
-        tanggalController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-      });
-    });
-  }
-
   String? selectedDateError;
-
   String alert = 'Tanggal Transaksi Tidak boleh kosong';
 
   TextEditingController nomorController = TextEditingController();
@@ -204,17 +184,15 @@ class _InputTransaksiState extends State<InputTransaksi> {
                           btnText: 'Simpan',
                           btnOnPress: () {
                             if (validasi()) {
-                              DateUtilsCustom.showDatePickerGlobal(context, tanggalController, (pickedDate) {
-                                setState(() {
-                                  selectedDate = pickedDate;
-                                });
+                              CustomAlertDialog.showConfirmationDialog(context, 'Apakah anda yakin data sudah benar?', () {
+                                transaksiProvider.addDataTransaction(
+                                    nomorController.text,
+                                    tanggalController.text,
+                                    kodeController.text,
+                                    namaController.text,
+                                    noTelpController.text);
+                                FocusScope.of(context).unfocus();
                               });
-                              transaksiProvider.addDataTransaction(
-                                  nomorController.text,
-                                  tanggalController.text,
-                                  kodeController.text,
-                                  namaController.text,
-                                  noTelpController.text);
                             }
                           },
                           btnRadius: 15),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:test_mobiledeveloper/data/sql_helper.dart';
+import 'package:test_mobiledeveloper/data/repository/sql_helper.dart';
 import 'package:test_mobiledeveloper/screens/Transaksi/input_transaksi.dart';
 import 'package:test_mobiledeveloper/widget/success_alert.dart';
 
@@ -12,6 +12,15 @@ class TransaksiProvider extends ChangeNotifier {
   List<TransactionModel> listTransaksi = [];
 
   List<TransactionModel> get getListTransaksi => listTransaksi;
+
+  bool isLoading = false;
+
+  bool get getIsLoading => isLoading;
+
+  set setIsLoading(bool value) {
+    isLoading = value;
+    notifyListeners();
+  }
 
   void addTransaction(TransactionModel transactionModel) {
     listTransaksi.add(transactionModel);
@@ -29,9 +38,13 @@ class TransaksiProvider extends ChangeNotifier {
     await loadTransaksi();
   }
 
-  Future<void> loadTransaksi() async {
-    List<TransactionModel> list = await SQLHelper.getTransaksiData();
+  Future<void> loadTransaksi({String? searchQuery}) async {
+    isLoading = true;
+
+    List<TransactionModel> list = await SQLHelper.getTransaksiData(searchQuery: searchQuery);
+
     listTransaksi = list;
+    isLoading = false;
     notifyListeners();
   }
 

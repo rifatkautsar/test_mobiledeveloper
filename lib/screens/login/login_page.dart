@@ -7,9 +7,15 @@ import 'package:test_mobiledeveloper/widget/custom_button.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 import 'package:test_mobiledeveloper/widget/custom_text_field.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +39,31 @@ class LoginPage extends StatelessWidget {
                     SizedBox(width: 10),
                     Expanded(
                       child: CustomTextField(
-                          hintText: 'Email ID', obscureText: false),
+                        hintText: 'Email ID',
+                        obscureText: false,
+                        withBorder: false,
+                      ),
                     ),
                   ],
                 ),
-                const Row(
+                 Row(
                   children: [
                     Icon(Icons.lock),
                     SizedBox(width: 10),
                     Expanded(
                       child: CustomTextField(
-                          hintText: 'Password', obscureText: true),
+                        hintText: 'Password',
+                        obscureText: isPasswordVisible ? false : true,
+                        icon: isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        onTap: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        },
+                        withBorder: false,
+                      ),
                     ),
                   ],
                 ),
@@ -71,12 +91,13 @@ class LoginPage extends StatelessWidget {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: CustomButtonRectangleBorder(
-                        btnColor: ColorConstant.blueColor,
-                        btnText: 'Login',
-                        btnOnPress: () {
-                          Get.offAll(() => const NavDrawer()
-                          );
-                        }, btnRadius: 25,),
+                      btnColor: ColorConstant.blueColor,
+                      btnText: 'Login',
+                      btnOnPress: () {
+                        Get.offAll(() => const NavDrawer());
+                      },
+                      btnRadius: 25,
+                    ),
                   ),
                 ),
               ],

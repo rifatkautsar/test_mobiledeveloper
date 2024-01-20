@@ -9,14 +9,12 @@ class DateUtilsCustom {
       DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2025),
+        firstDate: selectedDate.subtract(const Duration(days: 365 * 10)),
+        lastDate: selectedDate.add(const Duration(days: 365 * 10)),
       );
 
       if (pickedDate != null) {
         controller.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-
-        // Call the provided callback if available
         onDateSelected?.call(pickedDate);
       }
     } catch (e) {

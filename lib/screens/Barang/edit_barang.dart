@@ -11,7 +11,7 @@ import 'package:test_mobiledeveloper/widget/custom_text.dart';
 import '../../data/model/barang_model.dart';
 import '../../provider/barang_provider.dart';
 
-class EditBarang extends StatelessWidget {
+class EditBarang extends StatefulWidget {
   final int id;
   final String kodeBarang;
   final String namaBarang;
@@ -31,19 +31,21 @@ class EditBarang extends StatelessWidget {
       required this.totalBarang});
 
   @override
+  State<EditBarang> createState() => _EditBarangState();
+}
+
+class _EditBarangState extends State<EditBarang> {
+
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  late TextEditingController kodeBarangController = TextEditingController(text: widget.kodeBarang);
+  late TextEditingController namaBarangController = TextEditingController(text: widget.namaBarang);
+  late TextEditingController nomorBarangController = TextEditingController(text: widget.nomorBarang.toString());
+  late TextEditingController hargaBarangController = TextEditingController(text: widget.hargaBarang.toString());
+  late TextEditingController jumlahBarangController = TextEditingController(text: widget.jumlahBarang.toString());
+  late TextEditingController totalBarangController = TextEditingController(text: widget.totalBarang.toString());
+  @override
   Widget build(BuildContext context) {
-    TextEditingController kodeBarangController =
-        TextEditingController(text: kodeBarang);
-    TextEditingController namaBarangController =
-        TextEditingController(text: namaBarang);
-    TextEditingController nomorBarangController =
-        TextEditingController(text: nomorBarang.toString());
-    TextEditingController hargaBarangController =
-        TextEditingController(text: hargaBarang.toString());
-    TextEditingController jumlahBarangController =
-        TextEditingController(text: jumlahBarang.toString());
-    TextEditingController totalBarangController =
-        TextEditingController(text: totalBarang.toString());
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -52,67 +54,106 @@ class EditBarang extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                children: [
-                  // CustomTextBlack(text: 'Edit Barang', size: 24, fontWeight: FontWeight.bold),
-                  ItemInput(
-                    text: 'Kode Barang',
-                    textSize: 15,
-                    controller: kodeBarangController,
-                  ),
-                  ItemInput(
-                      text: 'Nama Barang',
+          child: Form(
+            key: _formKey,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Column(
+                  children: [
+                    // CustomTextBlack(text: 'Edit Barang', size: 24, fontWeight: FontWeight.bold),
+                    ItemInput(
+                      text: 'Kode Barang',
                       textSize: 15,
-                      controller: namaBarangController),
-                  const SizedBox(height: 10),
-                  ItemInput(
-                    text: 'Nomor Barang',
-                    textSize: 15,
-                    controller: nomorBarangController,
-                  ),
-                  const SizedBox(height: 10),
-                  ItemInput(
-                      text: 'Harga',
-                      textSize: 15,
-                      controller: hargaBarangController),
-                  const SizedBox(height: 10),
-                  ItemInput(
-                      text: 'Jumlah',
-                      textSize: 15,
-                      controller: jumlahBarangController),
-                  const SizedBox(height: 10),
-                  ItemInput(
-                      text: 'Total',
-                      textSize: 15,
-                      controller: totalBarangController),
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    child: CustomButtonRectangleBorder(
-                        btnColor: ColorConstant.blueColor,
-                        btnText: 'Simpan',
-                        btnOnPress: () {
-                          CustomAlertDialog.showConfirmationDialog(context,
-                              'Apakah Data Yang anda ubah sudah benar?', () {
-                            BarangModel updatedBarang = BarangModel(
-                                id: id,
-                                kodeBarang: kodeBarangController.text,
-                                namaBarang: namaBarangController.text,
-                                nomorBarang: int.parse(nomorBarangController.text),
-                                hargaBarang: hargaBarangController.text,
-                                jumlahBarang: jumlahBarangController.text,
-                                totalHargaBarang: totalBarangController.text);
-                            Provider.of<BarangProvider>(context, listen: false)
-                                .updateBarang(updatedBarang);
-                          });
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Kode Barang tidak boleh kosong';
+                        }
+                        return null;
+                      },
+                      controller: kodeBarangController,
+                    ),
+                    ItemInput(
+                        text: 'Nama Barang',
+                        textSize: 15,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Nama Barang tidak boleh kosong';
+                          }
+                          return null;
                         },
-                        btnRadius: 25),
-                  ),
-                ],
+                        controller: namaBarangController),
+                    const SizedBox(height: 10),
+                    ItemInput(
+                      text: 'Nomor Barang',
+                      textSize: 15,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Nomor Barang tidak boleh kosong';
+                        }
+                        return null;
+                      },
+                      controller: nomorBarangController,
+                    ),
+                    const SizedBox(height: 10),
+                    ItemInput(
+                        text: 'Harga',
+                        textSize: 15,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Harga Barang tidak boleh kosong';
+                          } else if (int.parse(value) <= 1) {
+                            return 'Harga Barang tidak boleh 0';
+                          }
+                          return null;
+                        },
+                        controller: hargaBarangController),
+                    const SizedBox(height: 10),
+                    ItemInput(
+                        text: 'Jumlah',
+                        textSize: 15,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Jumlah Barang tidak boleh kosong';
+                          } else if (int.parse(value) <= 1) {
+                            return 'Jumlah Barang tidak boleh 0';
+                          }
+                          return null;
+                        },
+                        controller: jumlahBarangController),
+                    const SizedBox(height: 10),
+                    ItemInput(
+                        text: 'Total',
+                        textSize: 15,
+                        controller: totalBarangController),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      child: CustomButtonRectangleBorder(
+                          btnColor: ColorConstant.blueColor,
+                          btnText: 'Simpan',
+                          btnOnPress: () {
+                           if(_formKey.currentState!.validate()){
+                             CustomAlertDialog.showConfirmationDialog(context,
+                                 'Apakah Data Yang anda ubah sudah benar?', () {
+                                   BarangModel updatedBarang = BarangModel(
+                                       id: widget.id,
+                                       kodeBarang: kodeBarangController.text,
+                                       namaBarang: namaBarangController.text,
+                                       nomorBarang: int.parse(nomorBarangController.text),
+                                       hargaBarang: hargaBarangController.text,
+                                       jumlahBarang: jumlahBarangController.text,
+                                       totalHargaBarang: totalBarangController.text);
+                                   Provider.of<BarangProvider>(context, listen: false).updateBarang(updatedBarang);
+                                   FocusScope.of(context).unfocus();
+                                 });
+                           }
+                          },
+                          btnRadius: 25),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -121,3 +162,4 @@ class EditBarang extends StatelessWidget {
     );
   }
 }
+

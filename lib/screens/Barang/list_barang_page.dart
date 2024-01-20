@@ -25,14 +25,15 @@ class _ListBarangPageState extends State<ListBarangPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<BarangProvider>(builder: (context, barangProvider, child) {
-      return Scaffold(
+    return FutureProvider(
+      create: (context) => context.read<BarangProvider>().loadBarang(),
+      initialData: [],
+      child: Consumer<BarangProvider>(builder: (context, barangProvider, child) {
+        return Scaffold(
+          backgroundColor: ColorConstant.white,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const InputBarangPage()));
+             Get.to(() => const InputBarangPage());
             },
             shape: const CircleBorder(),
             backgroundColor: ColorConstant.blueColor,
@@ -43,49 +44,51 @@ class _ListBarangPageState extends State<ListBarangPage> {
           ),
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: barangProvider.listBarang.isEmpty
-                  ? const Center(
-                      child: NoData(),
-                    )
+              padding: const EdgeInsets.all(10.0),
+              child: barangProvider.getIsLoading
+                ? const Center(child: CircularProgressIndicator())
+                  :  barangProvider.listBarang.isEmpty
+                  ? const Center(child: NoData())
                   : ListView.separated(
-                      itemCount: barangProvider.getListBarang.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        return ItemBarang(
-                          id: barangProvider.listBarang[index].id,
-                          namaBarang:
-                              barangProvider.listBarang[index].namaBarang,
-                          kodeBarang:
-                              barangProvider.listBarang[index].kodeBarang,
-                          nomorBarang: barangProvider
-                              .listBarang[index].nomorBarang
-                              .toString(),
-                          hargaBarang:
-                              barangProvider.listBarang[index].hargaBarang,
-                          jumlahBarang:
-                              barangProvider.listBarang[index].jumlahBarang,
-                          totalHargaBarang:
-                              barangProvider.listBarang[index].totalHargaBarang,
-                          btnOnPress: () {
-                            CustomAlertDialog.showConfirmationDialog(
-                                context, ConstantText.konfirmasiHapus, () {
-                              barangProvider.deleteBarang(
-                                  barangProvider.listBarang[index].id);
-                              Get.back();
-                              Get.snackbar(
-                                  'Confirmation', 'Data berhasil dihapus');
-                            });
-                          },
-                        );
-                      },
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 10,
-                      ),
-                    ),
+                itemCount: barangProvider.getListBarang.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return ItemBarang(
+                    id: barangProvider.listBarang[index].id,
+                    namaBarang:
+                    barangProvider.listBarang[index].namaBarang,
+                    kodeBarang:
+                    barangProvider.listBarang[index].kodeBarang,
+                    nomorBarang: barangProvider
+                        .listBarang[index].nomorBarang
+                        .toString(),
+                    hargaBarang:
+                    barangProvider.listBarang[index].hargaBarang,
+                    jumlahBarang:
+                    barangProvider.listBarang[index].jumlahBarang,
+                    totalHargaBarang:
+                    barangProvider.listBarang[index].totalHargaBarang,
+                    btnOnPress: () {
+                      CustomAlertDialog.showConfirmationDialog(
+                          context, ConstantText.konfirmasiHapus, () {
+                        barangProvider.deleteBarang(
+                            barangProvider.listBarang[index].id);
+                        Get.back();
+                        Get.snackbar(
+                            'Confirmation', 'Data berhasil dihapus');
+                      });
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 10,
+                ),
+              ),
             ),
-          ));
-    });
+          ),
+        );
+      }),
+    );
   }
 }

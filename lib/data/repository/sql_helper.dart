@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart' as sql;
 
-import 'model/barang_model.dart';
-import 'model/transaksi_model.dart';
+import '../model/barang_model.dart';
+import '../model/transaksi_model.dart';
 
 class SQLHelper {
   // Barang
@@ -30,9 +30,18 @@ class SQLHelper {
     return db.insert('barang', barangModel.toMap());
   }
 
-  static Future<List<BarangModel>> getBarangData() async {
+  static Future<List<BarangModel>> getBarangData({String? searchQuery}) async {
     final db = await SQLHelper.dbBarang();
-    final List<Map<String, dynamic>> maps = await db.query('barang');
+    String query = 'SELECT * FROM barang';
+
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      query += ' WHERE nama_barang LIKE ? OR kode_barang LIKE ? OR nomor_barang LIKE ? OR harga_barang LIKE ? OR jumlah_barang LIKE ? OR total_harga_barang LIKE ?';
+      searchQuery = '%$searchQuery%';
+    }
+
+    final List<Map<String, dynamic>> maps =
+    await db.rawQuery(query, searchQuery != null ? [searchQuery, searchQuery, searchQuery,searchQuery, searchQuery, searchQuery] : null);
+
     return maps.map((e) => BarangModel.fromJson(e)).toList();
   }
 
@@ -81,9 +90,18 @@ class SQLHelper {
     return db.insert('transaksi', transactionModel.toMap());
   }
 
-  static Future<List<TransactionModel>> getTransaksiData() async {
+  static Future<List<TransactionModel>> getTransaksiData({String? searchQuery}) async {
     final db = await SQLHelper.db();
-    final List<Map<String, dynamic>> maps = await db.query('transaksi');
+    String query = 'SELECT * FROM transaksi';
+
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      query += ' WHERE nama_customer LIKE ? OR kode_customer LIKE ? OR nomor_transaksi LIKE ? OR tanggal_transaksi LIKE ? OR nohp_customer LIKE ?';
+      searchQuery = '%$searchQuery%';
+    }
+
+    final List<Map<String, dynamic>> maps =
+    await db.rawQuery(query, searchQuery != null ? [searchQuery, searchQuery, searchQuery, searchQuery, searchQuery ] : null);
+
     return maps.map((e) => TransactionModel.fromJson(e)).toList();
   }
 
