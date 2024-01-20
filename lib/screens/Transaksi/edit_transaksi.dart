@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
+import 'package:test_mobiledeveloper/components/constant_text.dart';
 import 'package:test_mobiledeveloper/data/utilities/date_utils.dart';
 import 'package:test_mobiledeveloper/provider/transaksi_provider.dart';
+import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
 import 'package:test_mobiledeveloper/widget/Item_input.dart';
 import 'package:test_mobiledeveloper/widget/app_bar_custom.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
@@ -67,7 +69,8 @@ class _EditTransaksiState extends State<EditTransaksi> {
                       text: 'Nomor Transaksi',
                       textSize: 15,
                       validator: (value) {
-                        if (value == null || nomorTransaksiController.text.isEmpty) {
+                        if (value == null ||
+                            nomorTransaksiController.text.isEmpty) {
                           return 'Nomor Transaksi Tidak boleh kosong';
                         }
                         return null;
@@ -144,20 +147,25 @@ class _EditTransaksiState extends State<EditTransaksi> {
                           btnText: 'Simpan',
                           btnOnPress: () {
                             if (_formKey.currentState!.validate()) {
-                              TransactionModel transactionModel =
-                                  TransactionModel(
-                                      id: widget.id,
-                                      transactionNumber: int.parse(
-                                          nomorTransaksiController.text),
-                                      date: tanggalTransaksiController.text,
-                                      kodeCustomer: kodeCustomerController.text,
-                                      namaCustomer: namaCustomerController.text,
-                                      noTelpCustomer:
-                                          noTelpCustomerController.text);
-                              Provider.of<TransaksiProvider>(context,
-                                      listen: false)
-                                  .updateTransaction(transactionModel);
-                              FocusScope.of(context).unfocus();
+                              CustomAlertDialog.showConfirmationDialog(
+                                  context, ConstantText.confirmationAlert, () {
+                                TransactionModel transactionModel =
+                                    TransactionModel(
+                                        id: widget.id,
+                                        transactionNumber: int.parse(
+                                            nomorTransaksiController.text),
+                                        date: tanggalTransaksiController.text,
+                                        kodeCustomer:
+                                            kodeCustomerController.text,
+                                        namaCustomer:
+                                            namaCustomerController.text,
+                                        noTelpCustomer:
+                                            noTelpCustomerController.text);
+                                Provider.of<TransaksiProvider>(context,
+                                        listen: false)
+                                    .updateTransaction(transactionModel);
+                                FocusScope.of(context).unfocus();
+                              });
                             }
                           },
                           btnRadius: 25),
