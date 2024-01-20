@@ -114,6 +114,7 @@ class _InputTransaksiState extends State<InputTransaksi> {
                             textSize: 15,
                             controller: tanggalController,
                             icon: Icons.edit,
+                            hintText: 'Masukan Tanggal Transaksi',
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 'Tanggal Transaksi Tidak boleh kosong';
@@ -147,6 +148,7 @@ class _InputTransaksiState extends State<InputTransaksi> {
                         text: 'Kode Customer',
                         textSize: 15,
                         controller: kodeController,
+                        hintText: 'Masukan Kode Customer',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Kode Customer Tidak boleh kosong';
@@ -158,6 +160,7 @@ class _InputTransaksiState extends State<InputTransaksi> {
                       text: 'Nama Customer',
                       textSize: 15,
                       controller: namaController,
+                      hintText: 'Masukan Nama Customer',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Nama Customer Tidak boleh kosong';
@@ -170,6 +173,7 @@ class _InputTransaksiState extends State<InputTransaksi> {
                       text: 'No Telp Customer',
                       textSize: 15,
                       controller: noTelpController,
+                      hintText: 'Masukan No Telp Customer',
                       textInputType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
