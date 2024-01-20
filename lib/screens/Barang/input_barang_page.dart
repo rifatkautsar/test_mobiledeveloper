@@ -8,8 +8,6 @@ import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
 import 'package:test_mobiledeveloper/widget/Item_input.dart';
 import 'package:test_mobiledeveloper/widget/app_bar_custom.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
-import 'package:test_mobiledeveloper/widget/custom_text.dart';
-import 'package:test_mobiledeveloper/widget/custom_text_field.dart';
 
 import '../../data/utilities/calculate.dart';
 

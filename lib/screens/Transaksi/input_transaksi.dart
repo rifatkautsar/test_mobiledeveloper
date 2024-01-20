@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
 import 'package:test_mobiledeveloper/components/constant_text.dart';

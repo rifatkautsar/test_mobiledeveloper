@@ -6,7 +6,6 @@ import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
 import 'package:test_mobiledeveloper/widget/Item_input.dart';
 import 'package:test_mobiledeveloper/widget/app_bar_custom.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
-import 'package:test_mobiledeveloper/widget/custom_text.dart';
 
 import '../../data/model/barang_model.dart';
 import '../../provider/barang_provider.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:test_mobiledeveloper/data/repository/sql_helper.dart';
 import 'package:test_mobiledeveloper/screens/Transaksi/input_transaksi.dart';
 import 'package:test_mobiledeveloper/widget/success_alert.dart';

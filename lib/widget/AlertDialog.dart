@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:test_mobiledeveloper/components/color.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 
 class CustomAlertDialog {

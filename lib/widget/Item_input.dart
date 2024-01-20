@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 import 'package:test_mobiledeveloper/widget/custom_text_field.dart';
