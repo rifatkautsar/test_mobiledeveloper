@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
 import 'package:test_mobiledeveloper/screens/Transaksi/edit_transaksi.dart';
-import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
-import 'package:test_mobiledeveloper/widget/constant_text.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 
