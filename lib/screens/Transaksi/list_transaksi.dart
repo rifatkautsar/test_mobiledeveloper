@@ -72,7 +72,7 @@ class _TransaksiPage extends State<TransaksiPage> {
                             transaksiProvider
                                 .deleteTransaction(transaksi.id);
                             Get.back();
-                            Get.snackbar('Alert', 'Data Berhasil Dihapus');
+                            Get.snackbar('Confirmation', 'Data Berhasil Dihapus');
                           });
                         });
                   },
