@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,21 +36,25 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 15),
                 const Row(
                   children: [
-                    Icon(Icons.alternate_email),
+                    Icon(Icons.alternate_email, color: Colors.grey),
                     SizedBox(width: 10),
                     Expanded(
                       child: CustomTextField(
                         hintText: 'Email ID',
+                        color: Colors.grey,
                         obscureText: false,
                         withBorder: false,
                       ),
                     ),
                   ],
                 ),
-                 Row(
+                Row(
                   children: [
-                    Icon(Icons.lock),
-                    SizedBox(width: 10),
+                    const Icon(
+                      Icons.lock,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: CustomTextField(
                         hintText: 'Password',
@@ -57,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                         icon: isPasswordVisible
                             ? Icons.visibility
                             : Icons.visibility_off,
+                        color: Colors.grey,
                         onTap: () {
                           setState(() {
                             isPasswordVisible = !isPasswordVisible;
