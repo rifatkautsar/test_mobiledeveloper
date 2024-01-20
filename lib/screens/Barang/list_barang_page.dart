@@ -5,7 +5,7 @@ import 'package:test_mobiledeveloper/components/color.dart';
 import 'package:test_mobiledeveloper/provider/barang_provider.dart';
 import 'package:test_mobiledeveloper/screens/Barang/input_barang_page.dart';
 import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
-import 'package:test_mobiledeveloper/widget/constant_text.dart';
+import 'package:test_mobiledeveloper/components/constant_text.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 import 'package:test_mobiledeveloper/screens/Barang/item_barang.dart';
 import 'package:test_mobiledeveloper/widget/no_data.dart';

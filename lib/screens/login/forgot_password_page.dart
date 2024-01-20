@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
 import 'package:test_mobiledeveloper/widget/Item_input.dart';
-import 'package:test_mobiledeveloper/widget/constant_text.dart';
+import 'package:test_mobiledeveloper/components/constant_text.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
 import 'package:test_mobiledeveloper/widget/custom_text.dart';
 

@@ -5,7 +5,7 @@ import 'package:test_mobiledeveloper/components/color.dart';
 import 'package:test_mobiledeveloper/provider/transaksi_provider.dart';
 import 'package:test_mobiledeveloper/screens/Transaksi/input_transaksi.dart';
 import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
-import 'package:test_mobiledeveloper/widget/constant_text.dart';
+import 'package:test_mobiledeveloper/components/constant_text.dart';
 import 'package:test_mobiledeveloper/screens/Transaksi/item_transaksi.dart';
 import 'package:test_mobiledeveloper/widget/no_data.dart';
 

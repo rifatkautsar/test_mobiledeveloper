@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
+import 'package:test_mobiledeveloper/components/constant_text.dart';
 import 'package:test_mobiledeveloper/screens/Barang/item_barang.dart';
 import 'package:test_mobiledeveloper/screens/Transaksi/item_transaksi.dart';
 import 'package:test_mobiledeveloper/screens/Transaksi/list_transaksi.dart';
@@ -187,7 +188,7 @@ class _NavDrawerState extends State<NavDrawer> {
     final listTransaksi = transaksiProvider.listTransaksi;
     return listTransaksi.isEmpty
         ? const NoData(
-            textContent: 'Data Tidak Di Temukan',
+            textContent: ConstantText.titleNotFoundSearch,
           )
         : ListView.builder(
             itemCount: listTransaksi.length,
@@ -209,7 +210,7 @@ class _NavDrawerState extends State<NavDrawer> {
   Widget _buildBarangList(BarangProvider barangProvider) {
     final listBarang = barangProvider.listBarang;
     return listBarang.isEmpty
-        ? const NoData(textContent: 'Data Tidak Di Temukan')
+        ? const NoData(textContent: ConstantText.titleNotFoundSearch)
         : ListView.builder(
             itemCount: listBarang.length,
             itemBuilder: (context, index) {
