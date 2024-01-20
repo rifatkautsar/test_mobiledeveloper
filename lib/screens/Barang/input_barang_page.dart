@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
+import 'package:test_mobiledeveloper/components/constant_text.dart';
 import 'package:test_mobiledeveloper/provider/barang_provider.dart';
+import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
 import 'package:test_mobiledeveloper/widget/Item_input.dart';
 import 'package:test_mobiledeveloper/widget/app_bar_custom.dart';
 import 'package:test_mobiledeveloper/widget/custom_button.dart';
@@ -154,13 +156,18 @@ class _InputBarangPageState extends State<InputBarangPage> {
                               btnText: 'Simpan',
                               btnOnPress: () {
                                 if (_formKey.currentState!.validate()) {
-                                  barangProvider.addDataBarang(
-                                      namaBarangController.text,
-                                      kodeBarangController.text,
-                                      int.parse(nomorBarangController.text),
-                                      hargaBarangController.text,
-                                      jumlahBarangController.text,
-                                      totalBarangController.text);
+                                  CustomAlertDialog.showConfirmationDialog(
+                                      context,
+                                     ConstantText.confirmationAlert,
+                                      () {
+                                    barangProvider.addDataBarang(
+                                        namaBarangController.text,
+                                        kodeBarangController.text,
+                                        int.parse(nomorBarangController.text),
+                                        hargaBarangController.text,
+                                        jumlahBarangController.text,
+                                        totalBarangController.text);
+                                  });
                                 }
                                 FocusScope.of(context).unfocus();
                               },

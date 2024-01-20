@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobiledeveloper/components/color.dart';
+import 'package:test_mobiledeveloper/components/constant_text.dart';
 import 'package:test_mobiledeveloper/data/utilities/date_utils.dart';
 import 'package:test_mobiledeveloper/provider/transaksi_provider.dart';
 import 'package:test_mobiledeveloper/widget/AlertDialog.dart';
@@ -94,7 +95,9 @@ class _InputTransaksiState extends State<InputTransaksi> {
                                       btnColor: ColorConstant.blueColor,
                                       btnText: 'Show Date',
                                       btnOnPress: () {
-                                        DateUtilsCustom.showDatePickerGlobal(context, tanggalController, (pickedDate) {
+                                        DateUtilsCustom.showDatePickerGlobal(
+                                            context, tanggalController,
+                                            (pickedDate) {
                                           setState(() {
                                             selectedDate = pickedDate;
                                             date = selectedDate.toString();
@@ -119,7 +122,8 @@ class _InputTransaksiState extends State<InputTransaksi> {
                               return null;
                             },
                             onTap: () {
-                              DateUtilsCustom.showDatePickerGlobal(context, tanggalController, (pickedDate) {
+                              DateUtilsCustom.showDatePickerGlobal(
+                                  context, tanggalController, (pickedDate) {
                                 setState(() {
                                   selectedDate = pickedDate;
                                   date = selectedDate.toString();
@@ -184,7 +188,8 @@ class _InputTransaksiState extends State<InputTransaksi> {
                           btnText: 'Simpan',
                           btnOnPress: () {
                             if (validasi()) {
-                              CustomAlertDialog.showConfirmationDialog(context, 'Apakah anda yakin data sudah benar?', () {
+                              CustomAlertDialog.showConfirmationDialog(
+                                  context, ConstantText.confirmationAlert, () {
                                 transaksiProvider.addDataTransaction(
                                     nomorController.text,
                                     tanggalController.text,
